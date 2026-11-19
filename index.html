@@ -3,16 +3,27 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Security: only this site's own files + Google Fonts may load. If the inline script below changes, update its sha256 hash here. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-2AEyhG3OvFqrZtzp63g+UMRp0/kt+xfwlVUsqG93hJ8='; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="theme-color" content="#07080d">
-  <meta name="description" content="StaneAI builds mobile apps, software products, AI automation and intelligent chatbots. Founded in 2024.">
+  <meta name="description" content="StaneAI builds mobile apps, software products, AI automation and intelligent chatbots. Founded in 2026.">
   <title>StaneAI — Ideas into Intelligent Products</title>
+  <link rel="canonical" href="https://staneai.in/">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon-192.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
+  <script>try{if(!sessionStorage.getItem("intro-seen")){var d=document.documentElement;d.classList.add("intro-pending");setTimeout(function(){d.classList.remove("intro-pending","intro-prepaint","intro-reveal");var e=document.getElementById("intro");if(e)e.remove()},8000)}}catch(e){}</script>
+  <link rel="stylesheet" href="style.css?v=12">
+  <script src="script.js?v=12" defer></script>
+  <script src="intro.js?v=12" defer></script>
 </head>
 <body>
+  <!-- Intro logo reveal. Logo file is set via data-logo (an SVG or high-res PNG works best) -->
+  <div class="intro" id="intro" data-logo="assets/staneai-logo.webp" aria-hidden="true"><div class="intro-bg"></div><canvas class="intro-canvas"></canvas></div>
   <div class="page-noise" aria-hidden="true"></div>
   <div class="ambient ambient-one" aria-hidden="true"></div>
   <div class="ambient ambient-two" aria-hidden="true"></div>
@@ -21,8 +32,7 @@
   <header class="site-header" id="top">
     <nav class="nav container" aria-label="Main navigation">
       <a class="brand" href="#top" aria-label="StaneAI home">
-        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
-        <span>Stane<span class="brand-ai">AI</span></span>
+        <img class="brand-logo" src="assets/staneai-logo-header.webp" alt="" width="432" height="150">
       </a>
       <button class="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="nav-links">
         <span></span><span></span>
@@ -40,14 +50,14 @@
   <main>
     <section class="hero container" aria-labelledby="hero-title">
       <div class="hero-copy reveal">
-        <div class="eyebrow"><span class="status-dot"></span> Independent AI &amp; software products studio</div>
+        <div class="eyebrow"><span class="status-dot"></span> AI &amp; software products company</div>
         <h1 id="hero-title">Ideas into<br><span class="gradient-text text-shimmer">intelligent</span><br>experiences<span class="hero-period">.</span></h1>
         <p class="hero-description">We build mobile apps, modern software, AI automations and chatbots that turn everyday problems into simpler digital experiences.</p>
         <div class="hero-actions">
           <a class="button button-primary magnetic-ish" href="#services">Explore what we do <span aria-hidden="true">↘</span></a>
           <a class="text-link" href="#products">Discover our focus <span aria-hidden="true">→</span></a>
         </div>
-        <div class="hero-trustline"><span class="trust-dot"></span> Founded in 2024 <span class="trust-divider"></span> Product-first thinking</div>
+        <div class="hero-trustline"><span class="trust-dot"></span> Founded in 2026 <span class="trust-divider"></span> Product-first thinking</div>
       </div>
 
       <div class="hero-stage reveal" aria-label="Animated abstract StaneAI product interface">
@@ -58,7 +68,7 @@
         <div class="stage-orbit orbit-three"><span></span></div>
         <div class="stage-core">
           <div class="core-glass">
-            <div class="core-mark"><i></i><i></i><i></i></div>
+            <img class="core-logo" src="assets/staneai-icon.webp" alt="" width="256" height="264">
             <span class="core-word">STANE<span>AI</span></span>
             <span class="core-caption">MAKE IT USEFUL</span>
           </div>
@@ -73,7 +83,7 @@
 
     <section class="metrics-band" aria-label="StaneAI at a glance">
       <div class="container metrics-grid">
-        <div class="metric reveal"><strong><span class="metric-value" data-count="2024">2024</span></strong><span>Founded</span></div>
+        <div class="metric reveal"><strong><span class="metric-value" data-count="2026">2026</span></strong><span>Founded</span></div>
         <div class="metric reveal"><strong><span class="metric-value" data-count="10" data-suffix="+">10+</span></strong><span>Mobile apps in progress</span></div>
         <div class="metric reveal"><strong><span class="metric-value" data-count="5" data-suffix="+">5+</span></strong><span>US clients in pitching</span></div>
         <div class="metric-note reveal"><span class="metric-note-dot"></span><span>Building our next chapter,<br>one product at a time.</span></div>
@@ -86,7 +96,7 @@
         <div class="about-content reveal">
           <p class="section-overline">A small studio with a product mindset.</p>
           <h2>We build technology<br>with <span class="muted-heading">purpose.</span></h2>
-          <p class="large-copy">StaneAI is an independent AI and software products startup founded in 2024, focused on creating useful digital products — especially mobile applications for iOS and Android.</p>
+          <p class="large-copy">StaneAI is a private limited AI and software products company founded in 2026, focused on creating useful digital products — especially mobile applications for iOS and Android.</p>
           <p>From app concepts to custom software, AI-powered workflows and chatbots, we explore practical ways to solve problems with clean design and thoughtful engineering. Our goal is to make technology feel simpler, more helpful, and ready for real life.</p>
           <a class="inline-link" href="#services">See how we can help <span>↗</span></a>
           <div class="principles">
@@ -181,8 +191,8 @@
 
   <footer class="site-footer">
     <div class="container footer-main">
-      <a class="brand footer-brand" href="#top" aria-label="StaneAI home"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span>Stane<span class="brand-ai">AI</span></span></a>
-      <p>Independent by nature. Curious by design.</p>
+      <a class="brand footer-brand" href="#top" aria-label="StaneAI home"><img class="brand-logo" src="assets/staneai-logo-header.webp" alt="" width="432" height="150" loading="lazy"></a>
+      <p>Ideas into intelligent products.</p>
       <div class="social-links">
         <!-- Replace # with your actual profile URLs. -->
         <a href="#" aria-label="Instagram (add profile URL)" data-placeholder-link>Instagram <span>↗</span></a>

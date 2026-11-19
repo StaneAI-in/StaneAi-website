@@ -48,7 +48,7 @@
     el.dataset.counted = "true";
     const target = Number(el.dataset.count);
     const suffix = el.dataset.suffix || "";
-    if (!Number.isFinite(target) || target === 2024) { el.textContent = String(target) + suffix; return; }
+    if (!Number.isFinite(target) || target === 2026) { el.textContent = String(target) + suffix; return; }
     const duration = 1100;
     const start = performance.now();
     const step = (now) => {
