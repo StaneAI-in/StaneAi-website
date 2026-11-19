@@ -67,9 +67,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script>try{if(!sessionStorage.getItem("intro-seen")){var d=document.documentElement;d.classList.add("intro-pending");setTimeout(function(){d.classList.remove("intro-pending","intro-prepaint","intro-reveal");var e=document.getElementById("intro");if(e)e.remove()},8000)}}catch(e){}</script>
-  <link rel="stylesheet" href="style.css?v=13">
-  <script src="script.js?v=13" defer></script>
-  <script src="intro.js?v=13" defer></script>
+  <link rel="stylesheet" href="style.css?v=14">
+  <script src="script.js?v=14" defer></script>
+  <script src="intro.js?v=14" defer></script>
 </head>
 <body>
   <!-- Intro logo reveal. Logo file is set via data-logo (an SVG or high-res PNG works best) -->
@@ -91,6 +91,7 @@
         <a href="#about">About</a>
         <a href="#services">What we do</a>
         <a href="#products">Products</a>
+        <a href="blog/">Blog</a>
         <a href="#contact">Contact</a>
         <a class="nav-cta" href="#contact">Start a conversation <span aria-hidden="true">↗</span></a>
       </div>
@@ -169,22 +170,22 @@
           <article class="service-card service-featured reveal">
             <div class="service-top"><span class="service-index">01</span><span class="service-arrow">↗</span></div>
             <div class="service-visual mobile-visual" aria-hidden="true"><div class="phone phone-back"><span></span><span></span></div><div class="phone phone-front"><b></b><i></i><i></i><i></i><em></em></div><div class="visual-spark spark-a">✦</div><div class="visual-spark spark-b">✧</div></div>
-            <div class="service-copy"><span class="service-tag">OUR MAIN FOCUS</span><h3>Mobile App Development</h3><p>We’re focused on creating our own mobile products for Android and iOS — useful, intuitive apps designed for real-world needs.</p><div class="platform-tags"><span>Android</span><span>iOS</span><span>Play Store</span><span>App Store</span></div></div>
+            <div class="service-copy"><span class="service-tag">OUR MAIN FOCUS</span><h3>Mobile App Development</h3><p>We’re focused on creating our own mobile products for Android and iOS — useful, intuitive apps designed for real-world needs.</p><div class="platform-tags"><span>Android</span><span>iOS</span><span>Play Store</span><span>App Store</span></div><a class="service-bottom" href="mobile-app-development/">Explore mobile app development <span>↗</span></a></div>
           </article>
           <article class="service-card reveal">
             <div class="service-top"><span class="service-index">02</span><span class="service-arrow">↗</span></div>
             <div class="service-visual automation-visual" aria-hidden="true"><div class="auto-node node-a">IN</div><div class="auto-node node-b">AI</div><div class="auto-node node-c">OUT</div><div class="auto-line line-a"></div><div class="auto-line line-b"></div><div class="auto-pulse"></div></div>
-            <div class="service-copy"><span class="service-tag">SMARTER WORKFLOWS</span><h3>AI &amp; Workflow Automation</h3><p>Connect tools, reduce repetitive steps and explore AI-powered workflows that help teams work smarter.</p><div class="service-bottom">Automate the busywork <span>↗</span></div></div>
+            <div class="service-copy"><span class="service-tag">SMARTER WORKFLOWS</span><h3>AI &amp; Workflow Automation</h3><p>Connect tools, reduce repetitive steps and explore AI-powered workflows that help teams work smarter.</p><a class="service-bottom" href="ai-automation/">Automate the busywork <span>↗</span></a></div>
           </article>
           <article class="service-card reveal">
             <div class="service-top"><span class="service-index">03</span><span class="service-arrow">↗</span></div>
             <div class="service-visual chatbot-visual" aria-hidden="true"><div class="chat-bubble bubble-left"><i></i><i></i><i></i></div><div class="chat-bubble bubble-right"><i></i><i></i></div><div class="chat-orb">✳</div><span class="chat-dot dot-a"></span><span class="chat-dot dot-b"></span></div>
-            <div class="service-copy"><span class="service-tag">CONVERSATIONAL AI</span><h3>AI Chatbots &amp; Assistants</h3><p>Helpful chat experiences for answering questions, guiding users and supporting everyday business workflows.</p><div class="service-bottom">Make every interaction count <span>↗</span></div></div>
+            <div class="service-copy"><span class="service-tag">CONVERSATIONAL AI</span><h3>AI Chatbots &amp; Assistants</h3><p>Helpful chat experiences for answering questions, guiding users and supporting everyday business workflows.</p><a class="service-bottom" href="ai-chatbot-development/">Make every interaction count <span>↗</span></a></div>
           </article>
           <article class="service-card reveal">
             <div class="service-top"><span class="service-index">04</span><span class="service-arrow">↗</span></div>
             <div class="service-visual software-visual" aria-hidden="true"><div class="code-window"><div class="code-top"><i></i><i></i><i></i><span>build.js</span></div><div class="code-row row-1"></div><div class="code-row row-2"></div><div class="code-row row-3"></div><div class="code-row row-4"></div><div class="code-glow"></div></div></div>
-            <div class="service-copy"><span class="service-tag">IDEA TO IMPLEMENTATION</span><h3>Software Development</h3><p>Purpose-built web tools and software experiences shaped around a clear use case, with room to grow.</p><div class="service-bottom">Make the idea real <span>↗</span></div></div>
+            <div class="service-copy"><span class="service-tag">IDEA TO IMPLEMENTATION</span><h3>Software Development</h3><p>Purpose-built web tools and software experiences shaped around a clear use case, with room to grow.</p><a class="service-bottom" href="software-development/">Make the idea real <span>↗</span></a></div>
           </article>
         </div>
       </div>
@@ -250,6 +251,7 @@
         <a href="#" aria-label="GitHub (add profile URL)" data-placeholder-link>GitHub <span>↗</span></a>
       </div>
     </div>
+    <nav class="container footer-nav" aria-label="Services and blog"><a href="/mobile-app-development/">Mobile App Development</a><a href="/ai-automation/">AI &amp; Workflow Automation</a><a href="/ai-chatbot-development/">AI Chatbot Development</a><a href="/software-development/">Software Development</a><a href="/blog/">Blog</a></nav>
     <div class="container footer-bottom"><span>© <span id="current-year">2026</span> StaneAI Private Limited. All rights reserved.</span><nav class="footer-legal" aria-label="Legal"><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms &amp; Conditions</a></nav><a href="#top">Back to top ↑</a><span>Built with curiosity.</span></div>
   </footer>
 </body>

@@ -99,3 +99,27 @@ html.intro-pending.intro-reveal .site-header,html.intro-pending.intro-reveal mai
 .legal a:hover{color:#fff}
 .legal code{font-size:13px;background:rgba(255,255,255,.06);padding:2px 6px;border-radius:5px;color:#d9e0e7}
 @media(max-width:700px){.legal{padding:44px 0 80px}.legal p,.legal li{font-size:14px}}
+
+/* Service & blog pages */
+.breadcrumb{font-size:12px;color:var(--subtle);margin:0 0 22px;display:flex;flex-wrap:wrap;gap:6px}
+.legal .breadcrumb a{color:var(--muted);text-decoration:none}
+.legal .breadcrumb a:hover{color:#fff}
+.legal .page-lead{font-size:18px;line-height:1.7;color:#cfd4e2;margin:6px 0 30px}
+.legal ol{margin:0 0 14px;padding-left:22px}
+.legal a.button{color:#fff;text-decoration:none}
+.page-cta{margin:52px 0 10px;padding:30px;border:1px solid var(--line);border-radius:14px;background:linear-gradient(140deg,rgba(26,140,255,.1),rgba(255,255,255,.015))}
+.legal .page-cta h2{margin-top:0}
+.post-list{list-style:none;padding:0!important;margin:10px 0 0;display:grid;gap:16px}
+.legal .post-card{margin:0}
+.legal .post-card a{display:block;padding:24px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.02);text-decoration:none;transition:border-color .2s,transform .2s}
+.legal .post-card a:hover{border-color:rgba(113,182,255,.45);transform:translateY(-2px)}
+.post-card time{font-size:12px;color:var(--subtle)}
+.legal .post-card h2{margin:8px 0 8px;font-size:20px}
+.legal .post-card p{margin:0 0 12px}
+.post-more{color:#5fb0ff;font-size:13px;font-weight:600}
+.footer-nav{display:flex;flex-wrap:wrap;gap:10px 22px;padding:0 0 18px;font-size:11px}
+.footer-nav a{color:#a3a7b7;transition:color .2s}
+.footer-nav a:hover,.footer-nav a[aria-current="page"]{color:#fff}
+a.service-bottom{transition:color .2s}
+a.service-bottom:hover{color:#fff}
+@media(max-width:700px){.legal .page-lead{font-size:16px}.page-cta{padding:22px}.footer-nav{padding-top:4px}}
