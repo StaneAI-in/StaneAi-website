@@ -27,7 +27,7 @@ Then visit <http://localhost:5500>.
 
 ## Before publishing
 
-1. Replace `hello@staneai.com` and its `mailto:` link in `index.html` with your actual contact email.
+1. Contact emails are set to `contact@staneai.in` and `support@staneai.in`.
 2. Replace the `#` social URLs with real StaneAI profile URLs.
 3. Company figures and positioning are based on the details supplied for this website. Verify that the "10+ mobile apps in progress" and "5+ US clients in pitching" statements remain accurate before publishing.
 4. Google Fonts load remotely. For a fully offline page, remove the Google Fonts `<link>` elements and use the fallback sans-serif fonts in `style.css`.
@@ -45,4 +45,4 @@ Then visit <http://localhost:5500>.
 - Product mockups are CSS illustrations, not screenshots of launched apps.
 - No client names, customer logos, testimonials, revenue figures or unprovided achievements are claimed.
 - The social links intentionally do not navigate until real profile URLs are added.
-- This project has not been deployed.
+- Hosted on GitHub Pages at https://staneai.in (custom domain set via `CNAME`).
