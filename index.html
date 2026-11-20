@@ -36,12 +36,13 @@
         "legalName": "StaneAI Private Limited",
         "alternateName": ["Stane AI", "StaneAI Pvt Ltd"],
         "url": "https://staneai.in/",
-        "logo": "https://staneai.in/assets/favicon-192.png",
+        "logo": { "@type": "ImageObject", "url": "https://staneai.in/assets/favicon-192.png", "width": 192, "height": 192 },
         "image": "https://staneai.in/assets/og-image.png",
         "foundingDate": "2026",
         "description": "AI and software products company building mobile apps for Android and iOS, AI automation, AI chatbots and custom software.",
         "email": "contact@staneai.in",
         "address": { "@type": "PostalAddress", "addressCountry": "IN" },
+        "areaServed": [{ "@type": "Country", "name": "India" }, { "@type": "Country", "name": "United States" }],
         "contactPoint": [
           { "@type": "ContactPoint", "contactType": "sales", "email": "contact@staneai.in", "availableLanguage": ["English", "Hindi"] },
           { "@type": "ContactPoint", "contactType": "customer support", "email": "support@staneai.in", "availableLanguage": ["English", "Hindi"] }
@@ -60,16 +61,20 @@
     ]
   }
   </script>
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" type="image/png" sizes="96x96" href="assets/favicon-96.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="assets/favicon-48.png">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
   <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon-192.png">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <script src="intro-gate.js?v=14"></script>
-  <link rel="stylesheet" href="style.css?v=14">
-  <script src="script.js?v=14" defer></script>
-  <script src="intro.js?v=14" defer></script>
+  <link rel="preload" as="image" href="assets/staneai-logo.webp" type="image/webp">
+  <script src="intro-gate.js?v=15"></script>
+  <link rel="stylesheet" href="style.css?v=15">
+  <script src="script.js?v=15" defer></script>
+  <script src="intro.js?v=15" defer></script>
 </head>
 <body>
   <!-- Intro logo reveal. Logo file is set via data-logo (an SVG or high-res PNG works best) -->
@@ -102,7 +107,7 @@
     <section class="hero container" aria-labelledby="hero-title">
       <div class="hero-copy reveal">
         <div class="eyebrow"><span class="status-dot"></span> StaneAI · AI &amp; mobile app development company</div>
-        <h1 id="hero-title">Ideas into<br><span class="gradient-text text-shimmer">intelligent</span><br>experiences<span class="hero-period">.</span></h1>
+        <h1 id="hero-title"><span class="sr-only">StaneAI: AI &amp; mobile app development company. </span>Ideas into<br><span class="gradient-text text-shimmer">intelligent</span><br>experiences<span class="hero-period">.</span></h1>
         <p class="hero-description">StaneAI builds mobile apps for Android &amp; iOS, modern software, AI automations and AI chatbots that turn everyday problems into simpler digital experiences.</p>
         <div class="hero-actions">
           <a class="button button-primary magnetic-ish" href="#services">Explore what we do <span aria-hidden="true">↘</span></a>

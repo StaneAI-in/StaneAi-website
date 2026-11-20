@@ -7,6 +7,10 @@
   if (!intro) return;
   if (!root.classList.contains("intro-pending")) { intro.remove(); return; }
 
+  // intro.js is running, so the head failsafe is no longer needed (on slow phones it could
+  // otherwise fire mid-animation). A shorter watchdog below covers a stalled logo load.
+  clearTimeout(window.__introFailsafe);
+
   try { sessionStorage.setItem("intro-seen", "1"); } catch (e) { /* storage blocked: intro still plays once */ }
 
   const canvas = intro.querySelector(".intro-canvas");
@@ -32,7 +36,9 @@
   const skip = () => finish(true);
   const startWidth = window.innerWidth;
   const onResize = () => { if (window.innerWidth !== startWidth) skip(); };
-  const skipEvents = ["pointerdown", "keydown", "wheel", "touchstart"];
+  // "click" rather than touchstart/pointerdown: on phones an accidental touch or swipe
+  // while the page loads used to kill the intro instantly; a deliberate tap still skips.
+  const skipEvents = ["click", "keydown", "wheel"];
   skipEvents.forEach((ev) => window.addEventListener(ev, skip, { passive: true }));
   window.addEventListener("resize", onResize);
   function removeListeners() {
@@ -41,6 +47,7 @@
   }
 
   if (!ctx) { finish(true); return; }
+  setTimeout(() => finish(true), 7000);
 
   // ---- Logo ---------------------------------------------------------------
   // If an exact logo file is supplied via data-logo on #intro, it is drawn as-is.

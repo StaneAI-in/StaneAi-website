@@ -33,6 +33,7 @@ h1,h2,h3,p{margin-top:0}h1,h2,h3{font-family:var(--font-display)}h1{font-size:cl
 @media(max-width:370px){.container{width:calc(100% - 30px)}.hero-actions{align-items:flex-start;flex-direction:column;gap:14px}.hero-stage{transform:scale(.93);transform-origin:top center;margin-bottom:-20px}.float-panel strong{font-size:8px}.metrics-grid{gap:3px}.metric{padding-left:8px}.metric strong{font-size:21px}.metric>span{font-size:7px}.store-row{gap:7px}.store-badge{padding:9px}.store-badge strong{font-size:9px}}
 
 /* Intro logo reveal (intro.js). Only active while <html> has .intro-pending, once per session. */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .intro{display:none}
 html.intro-pending{overflow:hidden;scrollbar-gutter:stable}
 html.intro-pending .intro{display:block;position:fixed;inset:0;z-index:10000}
