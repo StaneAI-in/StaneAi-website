@@ -45,8 +45,9 @@ Then visit <http://localhost:5500>.
 
 ## Inline head script and the CSP hash
 
-Every page has one small inline `<script>` in `<head>` that (1) decides whether the logo intro plays and
-(2) loads Google Fonts without blocking rendering. The pages' Content-Security-Policy only allows it via its
+Every page has one small inline `<script>` in `<head>` that (1) hides the page if another site embeds it in a
+frame (clickjacking guard; GitHub Pages can't send X-Frame-Options), (2) decides whether the logo intro plays and
+(3) loads Google Fonts without blocking rendering. The pages' Content-Security-Policy only allows it via its
 `sha256-...` hash in `script-src`. If you change that script on any page, it must stay byte-identical on all
 pages and you must recompute the hash and update it in every page's CSP, or the browser will block it
 (no intro, no web fonts).
