@@ -7,6 +7,9 @@ A responsive, premium dark-theme landing page for StaneAI, built with plain HTML
 - `index.html` — page structure, metadata, company story, services, product vision, contact and social placeholders
 - `style.css` — responsive layout, advanced CSS motion, animated product illustrations and reduced-motion support
 - `script.js` — mobile navigation, scroll reveals, animated metric counters and dynamic copyright year
+- `intro.js` — logo intro animation (Canvas 2D + WebGL particles), plays once per browser session
+- `fx.js` — motion layer: headline reveals, scroll progress, parallax, tilt cards, magnetic buttons
+- `blog/` — articles; each post is a self-contained `blog/<slug>/index.html`
 - `assets/` — reserved for local images, icons and other static assets
 
 ## Run locally
@@ -39,6 +42,14 @@ Then visit <http://localhost:5500>.
 - Mobile navigation supports click, Escape, and closes after selecting a link.
 - `prefers-reduced-motion` is respected to reduce motion for visitors who request it.
 - Layout adapts for mobile, tablet and desktop screens.
+
+## Inline head script and the CSP hash
+
+Every page has one small inline `<script>` in `<head>` that (1) decides whether the logo intro plays and
+(2) loads Google Fonts without blocking rendering. The pages' Content-Security-Policy only allows it via its
+`sha256-...` hash in `script-src`. If you change that script on any page, it must stay byte-identical on all
+pages and you must recompute the hash and update it in every page's CSP, or the browser will block it
+(no intro, no web fonts).
 
 ## Notes
 

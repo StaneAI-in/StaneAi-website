@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-Q+vKorC87EVsAT1Neh6xQsnlmmKSr/lF2oDGr/G8ars='; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="theme-color" content="#07080d">
   <meta name="description" content="A plain-language guide to AI workflow automation: what it is, real examples for small businesses, where AI helps, where it doesn’t, and how to start.">
@@ -27,11 +27,12 @@
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <script src="/intro-gate.js?v=15"></script>
-  <link rel="stylesheet" href="/style.css?v=16">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
+  <script>try{if(!/bot|crawl|spider|slurp|bingpreview|facebookexternalhit|embedly|whatsapp|telegram/i.test(navigator.userAgent)&&!sessionStorage.getItem("intro-seen")){var d=document.documentElement;d.classList.add("intro-pending");window.__introFailsafe=setTimeout(function(){d.classList.remove("intro-pending","intro-prepaint","intro-reveal");var e=document.getElementById("intro");if(e)e.remove()},8000)}}catch(e){}try{var f=document.createElement("link");f.rel="stylesheet";f.href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap";document.head.appendChild(f)}catch(e){}</script>
+  <link rel="stylesheet" href="/style.css?v=19">
   <script src="/script.js?v=15" defer></script>
-  <script src="/intro.js?v=15" defer></script>
+  <script src="/intro.js?v=19" defer></script>
+  <script src="/fx.js?v=3" defer></script>
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -82,7 +83,7 @@
   </script>
 </head>
 <body>
-  <div class="intro" id="intro" data-logo="/assets/staneai-logo.webp" aria-hidden="true"><div class="intro-bg"></div><canvas class="intro-canvas"></canvas></div>
+  <div class="intro" id="intro" data-logo="/assets/staneai-wordmark.webp" aria-hidden="true"><div class="intro-bg"></div><canvas class="intro-canvas"></canvas></div>
   <div class="page-noise" aria-hidden="true"></div>
   <div class="ambient ambient-one" aria-hidden="true"></div>
 

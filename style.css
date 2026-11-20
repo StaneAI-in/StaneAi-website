@@ -41,10 +41,13 @@ html.intro-pending{overflow:hidden;scrollbar-gutter:stable}
 html.intro-pending .intro{display:block;position:fixed;inset:0;z-index:10000}
 .intro-bg{position:absolute;inset:0;background:radial-gradient(ellipse at center,#050e18 0%,#000 65%);transition:opacity 1.3s cubic-bezier(.4,0,.2,1)}
 .intro-canvas{position:absolute;inset:0;width:100%;height:100%;display:block;transition:opacity .45s ease}
+.intro-gl{mix-blend-mode:plus-lighter}
 html.intro-reveal .intro{pointer-events:none}
 html.intro-reveal .intro-bg,.intro.is-skipping .intro-canvas{opacity:0}
 html.intro-pending .site-header,html.intro-pending main,html.intro-pending .site-footer{opacity:0;will-change:opacity}
-/* Performance: skip painting the hidden page until the logo is holding still (.intro-prepaint),
+/* Keep the page on its own layers after the intro: dropping them at hand-over forced a full repaint (a visible hitch). */
+html.intro-played .site-header,html.intro-played main,html.intro-played .site-footer{will-change:opacity}
+/* Performance: skip painting the hidden page until intro.js has drawn its first (black) frame (.intro-prepaint),
    and keep the page's looping animations paused until the intro is completely finished. */
 html.intro-pending:not(.intro-prepaint) .site-header,html.intro-pending:not(.intro-prepaint) main,html.intro-pending:not(.intro-prepaint) .site-footer,html.intro-pending:not(.intro-prepaint) .ambient,html.intro-pending:not(.intro-prepaint) .page-noise{visibility:hidden}
 html.intro-pending body>:not(.intro),html.intro-pending body>:not(.intro) *{animation-play-state:paused!important}
@@ -126,3 +129,48 @@ html.intro-pending.intro-reveal .site-header,html.intro-pending.intro-reveal mai
 a.service-bottom{transition:color .2s}
 a.service-bottom:hover{color:#fff}
 @media(max-width:700px){.legal .page-lead{font-size:16px}.page-cta{padding:22px}.footer-nav{padding-top:4px}}
+/* ---- Motion layer (fx.js). Existing colours only; all of it is off for reduced motion. ---- */
+@media (prefers-reduced-motion:no-preference){
+.fx .reveal{transform:translateY(28px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+.fx .reveal.is-visible{transform:none;filter:none}
+/* Reveals that play underneath the intro are never seen, so they skip the blur (keeps the blast smooth). */
+.fx .reveal.fx-noblur{filter:none}
+.fx-split .fx-w{display:inline-block;overflow:hidden;vertical-align:top;padding:.06em .02em .14em;margin:-.06em -.02em -.14em}
+.fx-split .fx-wi{display:inline-block;transform:translateY(110%) rotate(4deg);transform-origin:0 100%;transition:transform 1s cubic-bezier(.16,1,.3,1);transition-delay:calc(var(--i,0) * 70ms)}
+.fx-split.fx-in .fx-wi{transform:none}
+.fx-hero.fx-split .fx-w{overflow:visible}
+.fx-hero.fx-split .fx-wi{opacity:0;transform:translateY(.45em) scale(1.08);transition:opacity 1.1s cubic-bezier(.16,1,.3,1),transform 1.1s cubic-bezier(.16,1,.3,1);transition-delay:calc(var(--i,0) * 110ms + 80ms)}
+.fx-hero.fx-split.fx-in .fx-wi{opacity:1;filter:none;transform:none}
+.fx .hero-stage{will-change:translate}
+.fx-progress{position:fixed;top:0;left:0;right:0;height:2px;z-index:60;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,var(--blue),#9aa6ff);box-shadow:0 0 12px rgba(113,182,255,.6);pointer-events:none}
+.fx-glow{position:fixed;left:-260px;top:-260px;will-change:transform;width:520px;height:520px;border-radius:50%;z-index:15;pointer-events:none;background:radial-gradient(circle closest-side,rgba(113,182,255,.085),rgba(113,182,255,0));opacity:0;transition:opacity .5s}
+.fx-glow.is-on{opacity:1}
+@supports (animation-timeline:scroll()){
+.fx-sd .fx-progress,.fx-sd-bar .fx-progress{animation:fxProgress linear both;animation-timeline:scroll(root)}
+.fx-sd .hero-stage{animation:fxStage linear both;animation-timeline:scroll(root);animation-range:0 900px}
+@keyframes fxProgress{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes fxStage{from{translate:0 0}to{translate:0 108px}}
+}
+.fx-tilt{position:relative}
+.fx-tilt.is-tilting{will-change:transform}
+.fx-tilt.is-tilting{transition:transform .12s ease-out,border-color .35s,box-shadow .35s}
+.fx-spot{position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .35s;background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(113,182,255,.13),transparent 45%)}
+.fx-tilt.is-tilting .fx-spot{opacity:1}
+.fx-magnet{transition:translate .35s cubic-bezier(.2,.8,.2,1),transform .25s,box-shadow .25s,border-color .25s}
+}
+
+/* ---- Smoothness pass ---- */
+@media (prefers-reduced-motion:no-preference){
+/* Blur-in reveals are costly per frame; only big desktops with a mouse get them. Phones/tablets get
+   the same rise + fade on transform/opacity alone, which runs entirely on the compositor. */
+@media (hover:hover) and (pointer:fine) and (min-width:1024px){
+.fx .reveal{filter:blur(8px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1),filter .8s cubic-bezier(.2,.7,.2,1)}
+.fx .reveal.is-visible,.fx .reveal.fx-noblur{filter:none}
+.fx-hero.fx-split .fx-wi{filter:blur(14px);transition:opacity 1.1s cubic-bezier(.16,1,.3,1),filter 1.1s cubic-bezier(.16,1,.3,1),transform 1.1s cubic-bezier(.16,1,.3,1);transition-delay:calc(var(--i,0) * 110ms + 80ms)}
+.fx-hero.fx-split.fx-in .fx-wi{filter:none}
+}
+}
+/* Sections scrolled out of view pause their looping animations (fx.js adds .fx-off). */
+.fx-off,.fx-off *,.fx-off *::before,.fx-off *::after{animation-play-state:paused!important}
+/* Phones/touch: the shimmering gradient text repaints every frame (background-position); keep it static. */
+@media (hover:none),(max-width:700px){.text-shimmer{animation:none}}
