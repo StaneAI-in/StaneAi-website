@@ -60,7 +60,9 @@
   }
 
   if (!ctx) { finish(true); return; }
-  setTimeout(() => finish(true), 9000);
+  // Watchdog: if the show never gets going (logo fails to load, very slow device), fade to the page.
+  // Once the clock starts it is re-armed from that moment, so slow setup never cuts the show midway.
+  let watchdog = setTimeout(() => finish(true), 9000);
 
   // ---- Logo ---------------------------------------------------------------
   // If an exact logo file is supplied via data-logo on #intro, it is drawn as-is.
@@ -237,7 +239,7 @@
     const clamp01 = (v) => (v < 0 ? 0 : v > 1 ? 1 : v);
     const easeOut = (t) => 1 - Math.pow(1 - t, 3);
     const easeInOut = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
-    let tAcc = 0, last = 0, warm = 0, waited = 0, prewarmed = false;
+    let tAcc = 0, last = 0, warm = 0, waited = 0, prewarmed = false, slowCheck = 0, slowSum = 0;
     let revealed = false, prepainted = false, blasted = false;
 
     // Assembly position of particle k at time t (spiral from its start offset to its logo pixel).
@@ -386,8 +388,18 @@
         }
         waited += raw;
         warm = raw > 0 && (raw < 24 || waited > 600) ? warm + 1 : 0;
+        if (warm >= 2) {
+          clearTimeout(watchdog);
+          watchdog = setTimeout(() => finish(true), T_END + 4000);
+        }
         rafId = requestAnimationFrame(frame);
         return;
+      }
+      // A device that can't keep up (under ~14fps for the first frames) gets a clean fade to the
+      // page instead of a juddering, half-played show.
+      if (slowCheck < 15) {
+        slowCheck++; slowSum += raw;
+        if (slowCheck === 15 && slowSum / 15 > 70) { finish(true); return; }
       }
       // The clock advances at most 34ms per frame: a slow frame slows the show down a touch
       // instead of jumping ahead, so every phase is always seen in full.
