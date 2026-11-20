@@ -239,7 +239,7 @@
     const clamp01 = (v) => (v < 0 ? 0 : v > 1 ? 1 : v);
     const easeOut = (t) => 1 - Math.pow(1 - t, 3);
     const easeInOut = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
-    let tAcc = 0, last = 0, warm = 0, waited = 0, prewarmed = false, slowCheck = 0, slowSum = 0;
+    let tAcc = 0, last = 0, warm = 0, waited = 0, prewarmed = false, started = false;
     let revealed = false, prepainted = false, blasted = false;
 
     // Assembly position of particle k at time t (spiral from its start offset to its logo pixel).
@@ -368,10 +368,11 @@
       const raw = last ? now - last : 0;
       last = now;
 
-      // Warm-up: the page is still loading behind the intro, so the first frames can be very
-      // long. Upload the logo to the GPU now (drawn invisibly), and only start the clock
-      // once the browser delivers two smooth frames in a row, so no part of the show is skipped.
-      if (warm < 2) {
+      // Warm-up: on a first visit the page is still downloading behind the intro (fonts, images),
+      // so the first frames can be very long. Upload the logo to the GPU now (drawn invisibly), and
+      // only start the clock once loading is done AND the browser delivers a few smooth frames in a
+      // row — capped at ~2.5s, after which the show starts regardless.
+      if (!started) {
         if (!prewarmed) {
           prewarmed = true;
           // Let the hidden page do its first paint now, while the screen is still black: the
@@ -387,19 +388,16 @@
           if (gl) { gl.clear(gl.COLOR_BUFFER_BIT); gl.drawArrays(gl.TRIANGLES, 0, 0); }
         }
         waited += raw;
-        warm = raw > 0 && (raw < 24 || waited > 600) ? warm + 1 : 0;
-        if (warm >= 2) {
+        warm = raw > 0 && raw < 24 ? warm + 1 : 0;
+        const loaded = document.readyState === "complete" &&
+          (!document.fonts || document.fonts.status === "loaded");
+        if ((loaded && warm >= 4) || waited > 2500) {
+          started = true;
           clearTimeout(watchdog);
-          watchdog = setTimeout(() => finish(true), T_END + 4000);
+          watchdog = setTimeout(() => finish(true), T_END + 2500);
         }
         rafId = requestAnimationFrame(frame);
         return;
-      }
-      // A device that can't keep up (under ~14fps for the first frames) gets a clean fade to the
-      // page instead of a juddering, half-played show.
-      if (slowCheck < 15) {
-        slowCheck++; slowSum += raw;
-        if (slowCheck === 15 && slowSum / 15 > 70) { finish(true); return; }
       }
       // The clock advances at most 34ms per frame: a slow frame slows the show down a touch
       // instead of jumping ahead, so every phase is always seen in full.
