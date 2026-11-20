@@ -35,8 +35,20 @@
 
   // Any interaction skips the intro; it never blocks the page.
   const skip = () => finish(true);
-  const startWidth = window.innerWidth;
-  const onResize = () => { if (window.innerWidth !== startWidth) skip(); };
+  // Size of the screen the intro actually covers. The fixed, full-screen #intro box is the ground
+  // truth: on Android Chrome window.innerWidth can report a desktop-like width while the page is
+  // still loading, which used to render the phone intro with desktop sizing.
+  const viewSize = () => {
+    const r = intro.getBoundingClientRect();
+    const de = document.documentElement;
+    return {
+      w: Math.round(r.width) || de.clientWidth || window.innerWidth,
+      h: Math.round(r.height) || de.clientHeight || window.innerHeight,
+    };
+  };
+  const startWidth = viewSize().w;
+  // Only a real width change (rotation) skips; Android's URL bar showing/hiding only changes height.
+  const onResize = () => { if (Math.abs(viewSize().w - startWidth) > 40) skip(); };
   // "click" rather than touchstart/pointerdown: on phones an accidental touch or swipe
   // while the page loads used to kill the intro instantly; a deliberate tap still skips.
   const skipEvents = ["click", "keydown", "wheel"];
@@ -146,7 +158,7 @@
     }
     if (done) return;
 
-    const W = window.innerWidth, H = window.innerHeight;
+    const { w: W, h: H } = viewSize();
     // Phones: cap pixel density lower — far fewer pixels to fill each frame.
     const dpr = Math.min(window.devicePixelRatio || 1, W < 700 ? 1.5 : 2);
     canvas.width = Math.round(W * dpr);
