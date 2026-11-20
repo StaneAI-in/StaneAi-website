@@ -174,3 +174,8 @@ a.service-bottom:hover{color:#fff}
 .fx-off,.fx-off *,.fx-off *::before,.fx-off *::after{animation-play-state:paused!important}
 /* Phones/touch: the shimmering gradient text repaints every frame (background-position); keep it static. */
 @media (hover:none),(max-width:700px){.text-shimmer{animation:none}}
+
+/* Android Chrome sizes the page to fit any content that sticks out sideways (glows, orbits), even when
+   html clips it, which makes the site render at the wrong scale. Clip on body too (positioned, so the
+   absolutely placed glows are clipped as well). clip, unlike hidden, keeps the sticky header working. */
+body{position:relative;overflow-x:clip}
