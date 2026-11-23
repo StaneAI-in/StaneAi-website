@@ -185,7 +185,7 @@
     // Cap pixel density, and cap the total pixel count: a full-screen canvas on a large/HiDPI monitor
     // (e.g. 2560x1440 @2x = 14.7M px) is far too much to clear and redraw every frame.
     let dpr = Math.min(window.devicePixelRatio || 1, W < 700 ? 1.5 : 2);
-    const budget = coarse ? 1.6e6 : 2.6e6;
+    const budget = coarse ? 1.6e6 : 1.9e6;
     if (W * H * dpr * dpr > budget) dpr = Math.max(1, Math.sqrt(budget / (W * H)));
     canvas.width = Math.round(W * dpr);
     canvas.height = Math.round(H * dpr);
@@ -220,7 +220,7 @@
     if (!reduceMotion) {
       const small = W < 700, mid = W < 1100;
       // Phones get fewer, slightly bolder particles: the logo still reads clearly, at a fraction of the cost.
-      let target = small ? 700 : coarse ? 1100 : mid ? 1600 : 3000;
+      let target = small ? 700 : coarse ? 1100 : mid ? 1500 : 2400;
       if (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) target = Math.round(target * 0.6);
       if (navigator.deviceMemory && navigator.deviceMemory <= 2) target = Math.round(target * 0.6);
 
@@ -283,11 +283,12 @@
 
     // ---- Particle renderer ----
     // Thousands of anti-aliased streaks per frame are far too much path work for Canvas 2D, so
-    // they are drawn on the GPU (WebGL) on a canvas stacked above, blended additively
-    // (plus-lighter) exactly like the 2D "lighter" mode. Canvas 2D remains the fallback.
+    // they are drawn on the GPU (WebGL) on a canvas stacked above, blended additively within that canvas (like
+    // the 2D "lighter" mode) and composited normally: a page-wide blend mode on it cost a full-screen pass per
+    // frame while the page fades in under the blast. Canvas 2D remains the fallback.
     const RGB = [[1, 1, 1], [61 / 255, 123 / 255, 1], [154 / 255, 166 / 255, 1]];
     let gl = null, glCanvas = null, glVerts = null, uOff = null;
-    if (N && !coarse && window.CSS && CSS.supports && CSS.supports("mix-blend-mode", "plus-lighter")) {
+    if (N && !coarse) {
       try {
         glCanvas = document.createElement("canvas");
         glCanvas.className = "intro-canvas intro-gl";
@@ -335,9 +336,11 @@
       if (gl) {
         const v = glVerts, h = (lineW * dpr) / 2;
         let n = 0;
-        const put = (x, y, u, w, exc, eyc, rgb, a) => {
-          v[n++] = x; v[n++] = y; v[n++] = u; v[n++] = w; v[n++] = exc; v[n++] = eyc;
-          v[n++] = rgb[0]; v[n++] = rgb[1]; v[n++] = rgb[2]; v[n++] = a;
+        // One vertex = x, y, u, w, extentX, extentY, r, g, b, a (written inline: this runs ~18k times a frame).
+        let R = 0, G = 0, B = 0, A = 0, EXC = 0, EYC = 0;
+        const put = (x, y, u, w) => {
+          v[n] = x; v[n + 1] = y; v[n + 2] = u; v[n + 3] = w; v[n + 4] = EXC; v[n + 5] = EYC;
+          v[n + 6] = R; v[n + 7] = G; v[n + 8] = B; v[n + 9] = A; n += 10;
         };
         for (let k = 0; k < N; k++) {
           const ti = tier[k];
@@ -351,14 +354,14 @@
           const exc = len / 2 + h, eyc = h;   // coverage extents (round-cap length)
           const ex = exc + 1, ey = eyc + 1;   // quad extents incl. 1px anti-alias rim
           const rgb = RGB[col[k]];
-          const a = ((ti + 1) / TIERS) * 0.95 * alphaMul;
+          R = rgb[0]; G = rgb[1]; B = rgb[2]; A = ((ti + 1) / TIERS) * 0.95 * alphaMul; EXC = exc; EYC = eyc;
           const ax = ux * ex, ay2 = uy * ex, nx = -uy * ey, ny = ux * ey;
-          put(cx0 - ax - nx, cy0 - ay2 - ny, -ex, -ey, exc, eyc, rgb, a);
-          put(cx0 + ax - nx, cy0 + ay2 - ny, ex, -ey, exc, eyc, rgb, a);
-          put(cx0 + ax + nx, cy0 + ay2 + ny, ex, ey, exc, eyc, rgb, a);
-          put(cx0 - ax - nx, cy0 - ay2 - ny, -ex, -ey, exc, eyc, rgb, a);
-          put(cx0 + ax + nx, cy0 + ay2 + ny, ex, ey, exc, eyc, rgb, a);
-          put(cx0 - ax + nx, cy0 - ay2 + ny, -ex, ey, exc, eyc, rgb, a);
+          put(cx0 - ax - nx, cy0 - ay2 - ny, -ex, -ey);
+          put(cx0 + ax - nx, cy0 + ay2 - ny, ex, -ey);
+          put(cx0 + ax + nx, cy0 + ay2 + ny, ex, ey);
+          put(cx0 - ax - nx, cy0 - ay2 - ny, -ex, -ey);
+          put(cx0 + ax + nx, cy0 + ay2 + ny, ex, ey);
+          put(cx0 - ax + nx, cy0 - ay2 + ny, -ex, ey);
         }
         gl.clear(gl.COLOR_BUFFER_BIT);
         if (n) {
