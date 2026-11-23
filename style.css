@@ -38,15 +38,20 @@ h1,h2,h3,p{margin-top:0}h1,h2,h3{font-family:var(--font-display)}h1{font-size:cl
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .intro{display:none}
 html.intro-pending{overflow:hidden;scrollbar-gutter:stable}
-html.intro-pending .intro{display:block;position:fixed;inset:0;z-index:10000;touch-action:none;overscroll-behavior:none;background:#000}
+html.intro-pending .intro{display:block;position:fixed;inset:0;z-index:10000;touch-action:none;overscroll-behavior:none}
 .intro-bg{position:absolute;inset:0;background:radial-gradient(ellipse at center,#050e18 0%,#000 65%);transition:opacity 1.3s cubic-bezier(.4,0,.2,1)}
 .intro-canvas{position:absolute;left:50%;top:50%;width:100%;height:100%;transform:translate(-50%,-50%);display:block;transition:opacity .45s ease}
 .intro-gl{mix-blend-mode:plus-lighter}
 html.intro-reveal .intro{pointer-events:none}
 html.intro-reveal .intro-bg,.intro.is-skipping .intro-canvas{opacity:0}
 html.intro-pending .site-header,html.intro-pending main,html.intro-pending .site-footer{opacity:0}
-/* No permanent will-change on main/header/footer: a page-tall GPU layer cost tens of MB (iOS dropped tiles and
-   flashed during the intro; desktop scrolling got heavier). The browser promotes them only while they fade. */
+/* Desktop: pre-render the hidden page on its own layers during the intro so it can fade in under the blast without
+   a stall, and keep them afterwards (dropping them at hand-over forced a full repaint, a visible hitch).
+   Phones skip this: a page-tall GPU layer costs tens of MB there (iOS dropped tiles and flashed). */
+@media (min-width:701px) and (hover:hover){
+html.intro-pending .site-header,html.intro-pending main,html.intro-pending .site-footer,
+html.intro-played .site-header,html.intro-played main,html.intro-played .site-footer{will-change:opacity}
+}
 /* Performance: skip painting the hidden page until intro.js has drawn its first (black) frame (.intro-prepaint),
    and keep the page's looping animations paused until the intro is completely finished. */
 html.intro-pending:not(.intro-prepaint) .site-header,html.intro-pending:not(.intro-prepaint) main,html.intro-pending:not(.intro-prepaint) .site-footer,html.intro-pending:not(.intro-prepaint) .ambient,html.intro-pending:not(.intro-prepaint) .page-noise{visibility:hidden}
