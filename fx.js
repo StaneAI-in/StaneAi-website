@@ -173,28 +173,50 @@
     card.appendChild(spot);
     const lift = card.classList.contains("service-card") ? -6 : -3;
     const maxDeg = card.classList.contains("service-card") ? 7 : 5;
-    card.addEventListener("pointermove", (e) => {
-      const r = card.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+    // The rect is measured once on enter (before the card tilts) and writes are batched to one per
+    // frame: reading the rect of a card we're rotating forced a layout on every mouse move.
+    let r = null, ev = null, queued = false;
+    const paint = () => {
+      queued = false;
+      if (!r || !ev) return;
+      const x = Math.min(Math.max((ev.clientX - r.left) / r.width, 0), 1);
+      const y = Math.min(Math.max((ev.clientY - r.top) / r.height, 0), 1);
       card.style.setProperty("--mx", `${x * 100}%`);
       card.style.setProperty("--my", `${y * 100}%`);
       card.style.transform = `perspective(900px) translateY(${lift}px) rotateX(${(0.5 - y) * maxDeg}deg) rotateY(${(x - 0.5) * maxDeg}deg)`;
-    });
-    card.addEventListener("pointerenter", () => card.classList.add("is-tilting"));
+    };
+    card.addEventListener("pointermove", (e) => {
+      if (!r) r = card.getBoundingClientRect();
+      ev = e;
+      if (!queued) { queued = true; requestAnimationFrame(paint); }
+    }, { passive: true });
+    card.addEventListener("pointerenter", () => { r = card.getBoundingClientRect(); card.classList.add("is-tilting"); });
     card.addEventListener("pointerleave", () => {
+      r = null; ev = null;
       card.classList.remove("is-tilting");
       card.style.transform = "";
     });
   });
 
   // ---- Magnetic buttons ----
+  // Centres are measured once per hover, and re-measured after the page scrolls.
+  let scrollEpoch = 0;
+  window.addEventListener("scroll", () => { scrollEpoch++; }, { passive: true });
   document.querySelectorAll(".button, .nav-cta, .text-link").forEach((btn) => {
     btn.classList.add("fx-magnet");
-    btn.addEventListener("pointermove", (e) => {
+    let c = null;
+    const measureBtn = () => {
+      const prev = btn.style.translate;
+      btn.style.translate = "";
       const r = btn.getBoundingClientRect();
-      const dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height / 2);
-      btn.style.translate = `${dx * 0.22}px ${dy * 0.32}px`;
-    });
-    btn.addEventListener("pointerleave", () => { btn.style.translate = ""; });
+      btn.style.translate = prev;
+      c = { x: r.left + r.width / 2, y: r.top + r.height / 2, epoch: scrollEpoch };
+    };
+    btn.addEventListener("pointerenter", measureBtn);
+    btn.addEventListener("pointermove", (e) => {
+      if (!c || c.epoch !== scrollEpoch) measureBtn();
+      btn.style.translate = `${(e.clientX - c.x) * 0.22}px ${(e.clientY - c.y) * 0.32}px`;
+    }, { passive: true });
+    btn.addEventListener("pointerleave", () => { c = null; btn.style.translate = ""; });
   });
 })();

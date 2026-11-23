@@ -38,15 +38,25 @@
   // Size of the screen the intro actually covers. The fixed, full-screen #intro box is the ground
   // truth: on Android Chrome window.innerWidth can report a desktop-like width while the page is
   // still loading, which used to render the phone intro with desktop sizing.
+  // But only once style.css has been applied: on a first (uncached) visit Safari can run this script
+  // before the stylesheet, when #intro is still a small in-flow block (it measured 377x154 on an
+  // iPhone 15) and the intro was then stretched across the whole screen.
+  const styled = () => getComputedStyle(intro).position === "fixed";
   const viewSize = () => {
-    const r = intro.getBoundingClientRect();
     const de = document.documentElement;
-    return {
-      w: Math.round(r.width) || de.clientWidth || window.innerWidth,
-      h: Math.round(r.height) || de.clientHeight || window.innerHeight,
-    };
+    if (styled()) {
+      const r = intro.getBoundingClientRect();
+      if (r.width > 0 && r.height > 0) return { w: Math.round(r.width), h: Math.round(r.height) };
+    }
+    return { w: de.clientWidth || window.innerWidth, h: window.innerHeight || de.clientHeight };
   };
-  const startWidth = viewSize().w;
+  // Resolves once the stylesheet is in effect (checked every frame), or after 3s regardless.
+  const whenStyled = () => new Promise((resolve) => {
+    const t0 = performance.now();
+    const check = () => (styled() || performance.now() - t0 > 3000 ? resolve() : requestAnimationFrame(check));
+    check();
+  });
+  let startWidth = viewSize().w;
   // Only a real width change (rotation) skips; Android's URL bar showing/hiding only changes height.
   const onResize = () => { if (Math.abs(viewSize().w - startWidth) > 40) skip(); };
   // "click" rather than touchstart/pointerdown: on phones an accidental touch or swipe
@@ -54,9 +64,14 @@
   const skipEvents = ["click", "keydown", "wheel"];
   skipEvents.forEach((ev) => window.addEventListener(ev, skip, { passive: true }));
   window.addEventListener("resize", onResize);
+  // iOS Safari ignores overflow:hidden for touch scrolling: a swipe during the intro scrolled the page
+  // underneath and collapsed the toolbar, which resized (stretched) the intro mid-show.
+  const noScroll = (e) => { if (e.cancelable) e.preventDefault(); };
+  intro.addEventListener("touchmove", noScroll, { passive: false });
   function removeListeners() {
     skipEvents.forEach((ev) => window.removeEventListener(ev, skip));
     window.removeEventListener("resize", onResize);
+    intro.removeEventListener("touchmove", noScroll);
   }
 
   if (!ctx) { finish(true); return; }
@@ -151,6 +166,9 @@
 
   // ---- Main ---------------------------------------------------------------
   const run = async () => {
+    await whenStyled();
+    if (done) return;
+    startWidth = viewSize().w;
     // Wait (briefly) for the display font so the wordmark matches the header.
     if (!logoSrc && document.fonts && document.fonts.load) {
       await Promise.race([
@@ -161,10 +179,20 @@
     if (done) return;
 
     const { w: W, h: H } = viewSize();
-    // Phones: cap pixel density lower — far fewer pixels to fill each frame.
-    const dpr = Math.min(window.devicePixelRatio || 1, W < 700 ? 1.5 : 2);
+    // Touch devices (phones, iPads) never use the WebGL layer: Canvas 2D with fewer particles is
+    // plenty there, and WebGL + plus-lighter compositing glitched on iOS Safari's first load.
+    const coarse = W < 700 || !!(window.matchMedia && window.matchMedia("(pointer: coarse)").matches);
+    // Cap pixel density, and cap the total pixel count: a full-screen canvas on a large/HiDPI monitor
+    // (e.g. 2560x1440 @2x = 14.7M px) is far too much to clear and redraw every frame.
+    let dpr = Math.min(window.devicePixelRatio || 1, W < 700 ? 1.5 : 2);
+    const budget = coarse ? 1.6e6 : 2.6e6;
+    if (W * H * dpr * dpr > budget) dpr = Math.max(1, Math.sqrt(budget / (W * H)));
     canvas.width = Math.round(W * dpr);
     canvas.height = Math.round(H * dpr);
+    // Fixed CSS size, centred: if the viewport height changes mid-show (mobile toolbar), the
+    // drawing is no longer stretched to the new box — it just stays put.
+    canvas.style.width = W + "px";
+    canvas.style.height = H + "px";
 
     const targetW = Math.min(W * (W < 700 ? 0.86 : 0.5), logoSrc ? 620 : 560);
     let logo;
@@ -192,7 +220,7 @@
     if (!reduceMotion) {
       const small = W < 700, mid = W < 1100;
       // Phones get fewer, slightly bolder particles: the logo still reads clearly, at a fraction of the cost.
-      let target = small ? 750 : mid ? 2000 : 4200;
+      let target = small ? 700 : coarse ? 1100 : mid ? 1600 : 3000;
       if (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) target = Math.round(target * 0.6);
       if (navigator.deviceMemory && navigator.deviceMemory <= 2) target = Math.round(target * 0.6);
 
@@ -259,11 +287,12 @@
     // (plus-lighter) exactly like the 2D "lighter" mode. Canvas 2D remains the fallback.
     const RGB = [[1, 1, 1], [61 / 255, 123 / 255, 1], [154 / 255, 166 / 255, 1]];
     let gl = null, glCanvas = null, glVerts = null, uOff = null;
-    if (N && window.CSS && CSS.supports && CSS.supports("mix-blend-mode", "plus-lighter")) {
+    if (N && !coarse && window.CSS && CSS.supports && CSS.supports("mix-blend-mode", "plus-lighter")) {
       try {
         glCanvas = document.createElement("canvas");
         glCanvas.className = "intro-canvas intro-gl";
         glCanvas.width = canvas.width; glCanvas.height = canvas.height;
+        glCanvas.style.width = canvas.style.width; glCanvas.style.height = canvas.style.height;
         gl = glCanvas.getContext("webgl", { alpha: true, premultipliedAlpha: true, antialias: false, depth: false, stencil: false, powerPreference: "high-performance" });
         if (gl) {
           const sh = (type, src) => {
@@ -371,7 +400,7 @@
       // Warm-up: on a first visit the page is still downloading behind the intro (fonts, images),
       // so the first frames can be very long. Upload the logo to the GPU now (drawn invisibly), and
       // only start the clock once loading is done AND the browser delivers a few smooth frames in a
-      // row — capped at ~2.5s, after which the show starts regardless.
+      // row — capped at ~1.4s, after which the show starts regardless.
       if (!started) {
         if (!prewarmed) {
           prewarmed = true;
@@ -391,7 +420,7 @@
         warm = raw > 0 && raw < 24 ? warm + 1 : 0;
         const loaded = document.readyState === "complete" &&
           (!document.fonts || document.fonts.status === "loaded");
-        if ((loaded && warm >= 4) || waited > 2500) {
+        if ((loaded && warm >= 4) || waited > 1400) {
           started = true;
           clearTimeout(watchdog);
           watchdog = setTimeout(() => finish(true), T_END + 2500);
