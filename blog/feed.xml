@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>StaneAI Blog</title>
+    <link>https://staneai.in/blog/</link>
+    <atom:link href="https://staneai.in/blog/feed.xml" rel="self" type="application/rss+xml"/>
+    <description>Practical guides from StaneAI on mobile app development, AI automation, AI chatbots and building useful software products.</description>
+    <language>en</language>
+    <lastBuildDate>Tue, 24 Nov 2026 00:00:00 +0530</lastBuildDate>
+    <item>
+      <title>Flutter vs React Native: which should you choose for your app?</title>
+      <link>https://staneai.in/blog/flutter-vs-react-native/</link>
+      <guid isPermaLink="true">https://staneai.in/blog/flutter-vs-react-native/</guid>
+      <pubDate>Tue, 24 Nov 2026 00:00:00 +0530</pubDate>
+      <description>Both build one app for Android and iOS. How they differ on design, performance, team skills and cost, and how to pick.</description>
+    </item>
+    <item>
+      <title>How long does it take to build a mobile app? A realistic timeline</title>
+      <link>https://staneai.in/blog/how-long-to-build-a-mobile-app/</link>
+      <guid isPermaLink="true">https://staneai.in/blog/how-long-to-build-a-mobile-app/</guid>
+      <pubDate>Tue, 24 Nov 2026 00:00:00 +0530</pubDate>
+      <description>From planning and design to store approval: the phases of an app project, realistic time ranges, and what slows launches down.</description>
+    </item>
+    <item>
+      <title>How to choose an AI development company: a practical checklist</title>
+      <link>https://staneai.in/blog/how-to-choose-ai-development-company/</link>
+      <guid isPermaLink="true">https://staneai.in/blog/how-to-choose-ai-development-company/</guid>
+      <pubDate>Sat, 21 Nov 2026 00:00:00 +0530</pubDate>
+      <description>An impressive demo is not the same as a reliable product. Eleven questions to ask before you hire an AI development partner.</description>
+    </item>
+    <item>
+      <title>Custom software vs off-the-shelf: which is right for your business?</title>
+      <link>https://staneai.in/blog/custom-software-vs-off-the-shelf/</link>
+      <guid isPermaLink="true">https://staneai.in/blog/custom-software-vs-off-the-shelf/</guid>
+      <pubDate>Sat, 21 Nov 2026 00:00:00 +0530</pubDate>
+      <description>Buy, build or extend? Compare the real costs and trade-offs, and use a simple framework to choose the right option.</description>
+    </item>
+    <item>
+      <title>How much does it cost to build a mobile app in India?</title>
+      <link>https://staneai.in/blog/mobile-app-development-cost-india/</link>
+      <guid isPermaLink="true">https://staneai.in/blog/mobile-app-development-cost-india/</guid>
+      <pubDate>Sat, 21 Nov 2026 00:00:00 +0530</pubDate>
+      <description>Features, platforms, design, backend and maintenance all shape the price. What drives app cost and how to reduce it sensibly.</description>
+    </item>
+    <item>
+      <title>Android vs iOS: which platform should you build your first app for?</title>
+      <link>https://staneai.in/blog/android-vs-ios-which-platform-first/</link>
+      <guid isPermaLink="true">https://staneai.in/blog/android-vs-ios-which-platform-first/</guid>
+      <pubDate>Thu, 19 Nov 2026 00:00:00 +0530</pubDate>
+      <description>Your users, your budget and how you plan to earn money matter more than which platform is “better”. Here is how to decide.</description>
+    </item>
+    <item>
+      <title>What is AI workflow automation? A practical guide for small businesses</title>
+      <link>https://staneai.in/blog/what-is-ai-workflow-automation/</link>
+      <guid isPermaLink="true">https://staneai.in/blog/what-is-ai-workflow-automation/</guid>
+      <pubDate>Thu, 19 Nov 2026 00:00:00 +0530</pubDate>
+      <description>Automation removes repetitive steps; AI handles the messy ones. A plain-language guide with examples and a simple way to start.</description>
+    </item>
+    <item>
+      <title>AI chatbot for business: how to plan one that actually helps customers</title>
+      <link>https://staneai.in/blog/ai-chatbot-for-business-guide/</link>
+      <guid isPermaLink="true">https://staneai.in/blog/ai-chatbot-for-business-guide/</guid>
+      <pubDate>Thu, 19 Nov 2026 00:00:00 +0530</pubDate>
+      <description>Most chatbots disappoint because nobody decided what they were for. Here is how to plan one that customers actually find useful.</description>
+    </item>
+  </channel>
+</rss>
