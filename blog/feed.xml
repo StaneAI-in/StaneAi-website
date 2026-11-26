@@ -6,7 +6,14 @@
     <atom:link href="https://staneai.in/blog/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical guides from StaneAI on mobile app development, AI automation, AI chatbots and building useful software products.</description>
     <language>en</language>
-    <lastBuildDate>Tue, 24 Nov 2026 00:00:00 +0530</lastBuildDate>
+    <lastBuildDate>Fri, 27 Nov 2026 00:00:00 +0530</lastBuildDate>
+    <item>
+      <title>What is an MVP? How to plan the first version of your app</title>
+      <link>https://staneai.in/blog/what-is-an-mvp/</link>
+      <guid isPermaLink="true">https://staneai.in/blog/what-is-an-mvp/</guid>
+      <pubDate>Fri, 27 Nov 2026 00:00:00 +0530</pubDate>
+      <description>Build the right thing first: what an MVP really is, how to choose its features, and the mistakes that make first versions slow and costly.</description>
+    </item>
     <item>
       <title>Flutter vs React Native: which should you choose for your app?</title>
       <link>https://staneai.in/blog/flutter-vs-react-native/</link>
