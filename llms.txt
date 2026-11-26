@@ -13,6 +13,10 @@ Key facts:
 - Contact: contact@staneai.in (new projects), support@staneai.in (support)
 - Tagline: "Ideas into intelligent products."
 
+## About
+
+- [About StaneAI](https://staneai.in/about/): who we are, what we build, how we work, company details
+
 ## Services
 
 - [Mobile App Development](https://staneai.in/mobile-app-development/): Android and iOS apps, cross-platform (Flutter / React Native) and native, from MVP to launch
@@ -22,6 +26,7 @@ Key facts:
 
 ## Guides
 
+- [WhatsApp chatbot for business: a practical guide for Indian companies](https://staneai.in/blog/whatsapp-chatbot-for-business/)
 - [What is an MVP? How to plan the first version of your app](https://staneai.in/blog/what-is-an-mvp/)
 - [Flutter vs React Native: which should you choose for your app?](https://staneai.in/blog/flutter-vs-react-native/)
 - [How long does it take to build a mobile app?](https://staneai.in/blog/how-long-to-build-a-mobile-app/)
