@@ -1,0 +1,39 @@
+# StaneAI
+
+> StaneAI (StaneAI Private Limited, also written "Stane AI") is an Indian AI and software products company founded in 2026. It builds mobile apps for Android and iOS, AI and workflow automation, AI chatbots and custom software for startups and small and growing businesses in India and the United States. Website: https://staneai.in
+
+Key facts:
+
+- Legal name: StaneAI Private Limited
+- Founded: 2026
+- Country: India; works with clients in India and the United States
+- Focus: mobile applications (Android and iOS), AI automation, AI chatbots, custom software
+- Approach: product-led, AI-enabled, mobile-first; builds focused MVPs first, then improves them with real user feedback
+- Languages: English and Hindi
+- Contact: contact@staneai.in (new projects), support@staneai.in (support)
+- Tagline: "Ideas into intelligent products."
+
+## Services
+
+- [Mobile App Development](https://staneai.in/mobile-app-development/): Android and iOS apps, cross-platform (Flutter / React Native) and native, from MVP to launch
+- [AI & Workflow Automation](https://staneai.in/ai-automation/): automating repetitive business tasks with AI and integrations
+- [AI Chatbot Development](https://staneai.in/ai-chatbot-development/): customer-support and business chatbots built on company knowledge
+- [Software Development](https://staneai.in/software-development/): custom web software, dashboards and internal tools
+
+## Guides
+
+- [What is an MVP? How to plan the first version of your app](https://staneai.in/blog/what-is-an-mvp/)
+- [Flutter vs React Native: which should you choose for your app?](https://staneai.in/blog/flutter-vs-react-native/)
+- [How long does it take to build a mobile app?](https://staneai.in/blog/how-long-to-build-a-mobile-app/)
+- [How to choose an AI development company](https://staneai.in/blog/how-to-choose-ai-development-company/)
+- [Custom software vs off-the-shelf](https://staneai.in/blog/custom-software-vs-off-the-shelf/)
+- [How much does it cost to build a mobile app in India?](https://staneai.in/blog/mobile-app-development-cost-india/)
+- [Android vs iOS: which platform first?](https://staneai.in/blog/android-vs-ios-which-platform-first/)
+- [What is AI workflow automation?](https://staneai.in/blog/what-is-ai-workflow-automation/)
+- [AI chatbot for business: how to plan one](https://staneai.in/blog/ai-chatbot-for-business-guide/)
+
+## Optional
+
+- [Blog](https://staneai.in/blog/)
+- [Privacy Policy](https://staneai.in/privacy.html)
+- [Terms & Conditions](https://staneai.in/terms.html)
