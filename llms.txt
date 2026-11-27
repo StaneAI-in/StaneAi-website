@@ -28,6 +28,9 @@ Key facts:
 
 - [Mobile app development in India: the complete guide for businesses](https://staneai.in/blog/mobile-app-development-guide-india/): Everything to plan, build and launch an app in India: platforms, technology, MVP, cost, partners, payments, privacy and store launch.
 - [AI for business: the complete guide for Indian companies](https://staneai.in/blog/ai-for-business-guide-india/): Where AI helps and where it does not, build vs buy, privacy, accuracy, costs, ROI and a step-by-step plan to start.
+- [Hiring an app development team in India: a guide for US startups](https://staneai.in/blog/hire-app-developers-india/): Engagement models, time-zone overlap, contracts and IP ownership, payments and the red flags to watch for when you work with an Indian team.
+- [How to publish your app on Google Play and the App Store](https://staneai.in/blog/publish-app-google-play-app-store/): Developer accounts, fees, testing rules, store listings, privacy forms and review: a step-by-step launch checklist for Android and iOS.
+- [Website or mobile app: which does your business need first?](https://staneai.in/blog/website-vs-mobile-app/): Compare reach, cost, features and upkeep, then use a simple checklist to decide whether to start with a website, a web app or a mobile app.
 - [WhatsApp chatbot for business: a practical guide for Indian companies](https://staneai.in/blog/whatsapp-chatbot-for-business/)
 - [What is an MVP? How to plan the first version of your app](https://staneai.in/blog/what-is-an-mvp/)
 - [Flutter vs React Native: which should you choose for your app?](https://staneai.in/blog/flutter-vs-react-native/)

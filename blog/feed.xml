@@ -6,7 +6,28 @@
     <atom:link href="https://staneai.in/blog/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical guides from StaneAI on mobile app development, AI automation, AI chatbots and building useful software products.</description>
     <language>en</language>
-    <lastBuildDate>Fri, 27 Nov 2026 00:00:00 +0530</lastBuildDate>
+    <lastBuildDate>Fri, 27 Nov 2026 21:00:00 +0530</lastBuildDate>
+    <item>
+      <title>Hiring an app development team in India: a guide for US startups</title>
+      <link>https://staneai.in/blog/hire-app-developers-india/</link>
+      <guid isPermaLink="true">https://staneai.in/blog/hire-app-developers-india/</guid>
+      <pubDate>Fri, 27 Nov 2026 21:00:00 +0530</pubDate>
+      <description>Engagement models, time-zone overlap, contracts and IP ownership, payments and the red flags to watch for when you work with an Indian team.</description>
+    </item>
+    <item>
+      <title>How to publish your app on Google Play and the App Store</title>
+      <link>https://staneai.in/blog/publish-app-google-play-app-store/</link>
+      <guid isPermaLink="true">https://staneai.in/blog/publish-app-google-play-app-store/</guid>
+      <pubDate>Fri, 27 Nov 2026 20:00:00 +0530</pubDate>
+      <description>Developer accounts, fees, testing rules, store listings, privacy forms and review: a step-by-step launch checklist for Android and iOS.</description>
+    </item>
+    <item>
+      <title>Website or mobile app: which does your business need first?</title>
+      <link>https://staneai.in/blog/website-vs-mobile-app/</link>
+      <guid isPermaLink="true">https://staneai.in/blog/website-vs-mobile-app/</guid>
+      <pubDate>Fri, 27 Nov 2026 19:00:00 +0530</pubDate>
+      <description>Compare reach, cost, features and upkeep, then use a simple checklist to decide whether to start with a website, a web app or a mobile app.</description>
+    </item>
     <item>
       <title>Mobile app development in India: the complete guide for businesses</title>
       <link>https://staneai.in/blog/mobile-app-development-guide-india/</link>
