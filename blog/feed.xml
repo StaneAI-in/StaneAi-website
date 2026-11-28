@@ -6,7 +6,14 @@
     <atom:link href="https://staneai.in/blog/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical guides from StaneAI on mobile app development, AI automation, AI chatbots and building useful software products.</description>
     <language>en</language>
-    <lastBuildDate>Fri, 27 Nov 2026 21:00:00 +0530</lastBuildDate>
+    <lastBuildDate>Sat, 28 Nov 2026 10:00:00 +0530</lastBuildDate>
+    <item>
+      <title>App maintenance cost in India: what to budget after launch</title>
+      <link>https://staneai.in/blog/app-maintenance-cost-india/</link>
+      <guid isPermaLink="true">https://staneai.in/blog/app-maintenance-cost-india/</guid>
+      <pubDate>Sat, 28 Nov 2026 10:00:00 +0530</pubDate>
+      <description>What maintenance covers, the yearly OS and store updates you cannot skip, running costs, and how to plan a realistic yearly budget.</description>
+    </item>
     <item>
       <title>Hiring an app development team in India: a guide for US startups</title>
       <link>https://staneai.in/blog/hire-app-developers-india/</link>
